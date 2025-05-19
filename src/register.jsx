@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react'
-function App() {
+function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -16,7 +16,7 @@ function App() {
     <div className="login-box">
       <div className="login-header">
         <h2>Welcome Back</h2>
-        <p>Please sign in to continue</p>
+        <p>Please sign up to continue</p>
       </div>
 
       <form onSubmit={handleSubmit} className="login-form">
@@ -49,31 +49,19 @@ function App() {
           </div>
         </div>
 
-        <div className="options-container">
-          <label className="remember-me">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            Remember me
-          </label>
-          <a href="/forgot-password" className="forgot-password">
-            Forgot Password?
-          </a>
-        </div>
+      
 
         <button type="submit" className="signin-button">
-          Sign In
+          Sign Up
         </button>
       </form>
 
       <div className="signup-link">
-        Don't have an account? <a href="/register">Sign up here</a>
+        Don't have an account? <a href="/">Sign in here</a>
       </div>
     </div>
   </div>
   );
 }
 
-export default App;
+export default Register;
