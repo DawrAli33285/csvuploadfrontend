@@ -6,7 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter , Route ,Routes} from 'react-router-dom'
 import Register from './register';
 import Dashboard from './dashboard';
+import 'react-toastify/dist/ReactToastify.css';
 import AdminDashboard from './adminDashboard';
+import AdminLogin from './adminLogin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +19,7 @@ root.render(
       <Route path='/register' element={<Register />}></Route>
       <Route path='/dashboard' element={<Dashboard/>}></Route>
       <Route path='/admindashboard' element={<AdminDashboard/>}></Route>
+      <Route path='/admin-login' element={<AdminLogin></AdminLogin>}></Route>
     </Routes>
     </BrowserRouter>
   </React.StrictMode>

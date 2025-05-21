@@ -204,7 +204,7 @@ admin dashbaord */
   height: 1px;
 }
 
-.update-file span {
+.update-file span:nth-child(2) {
   background-color: #f6ad55;
   color: white;
   padding: 6px 12px;
@@ -212,9 +212,20 @@ admin dashbaord */
   transition: background-color 0.2s;
 }
 
-.update-file:hover span {
+.update-file span:nth-child(1) {
+  background-color: #1ec542;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+.update-file:hover:nth-child(2) span {
   background-color: #ed8936;
 }
+.update-file:hover:nth-child(1) span {
+  background-color: #168a2f;
+}
+
 
 /* Add version indicator */
 td:nth-child(4) {
@@ -242,4 +253,190 @@ th:nth-child(5) { width: 15%; }
   td:nth-child(4) {
     display: none;
   }
+}
+
+
+/* Admin Login Specific Styles */
+.admin-login-container {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+.admin-login-box {
+  border: 1px solid #4a5568;
+  background: rgba(26, 32, 44, 0.95);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.admin-login-header {
+  border-bottom: 2px solid #4a5568;
+}
+
+.admin-login-header h2 {
+  color: #48bb78;
+  font-size: 2.2rem;
+}
+
+.admin-login-header p {
+  color: #a0aec0;
+}
+
+.admin-badge {
+  background: #2d3748;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px auto;
+  font-size: 1.5rem;
+}
+
+.admin-signin-button {
+  background: #48bb78;
+  border: 1px solid #38a169;
+  &:hover {
+    background: #38a169;
+  }
+}
+
+.admin-toggle {
+  color: #48bb78;
+  &:hover {
+    color: #38a169;
+  }
+}
+
+.admin-toast-container .Toastify__toast {
+  background: #2d3748;
+  color: #cbd5e0;
+  border: 1px solid #4a5568;
+}
+
+.admin-note p {
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+
+.admin-login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+
+.admin-login-form {
+  width: 100%;
+  max-width: 400px; 
+  margin: 0 auto;
+}
+
+.admin-login-form .form-group {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.admin-login-form input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.admin-login-box {
+  width: 100%;
+  max-width: 440px;
+  padding: 2.5rem;
+  border: 1px solid #4a5568;
+  background: rgba(26, 32, 44, 0.95);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.download-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.file-info {
+  margin-bottom: 1.5rem;
+}
+
+.file-info span {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.code-inputs {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.code-inputs input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.2rem;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+.code-inputs input:focus {
+  border-color: #2196F3;
+  outline: none;
+}
+
+.confirm-download-button {
+  background: #2196F3;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.confirm-download-button:disabled {
+  background: #90CAF9;
+  cursor: not-allowed;
 }

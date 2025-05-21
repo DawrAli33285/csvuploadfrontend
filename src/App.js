@@ -1,18 +1,67 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 function App() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted');
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password
+        })
+      });
+
+      const data = await response.json();
+
+    
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed');
+      }
+
+   
+      localStorage.setItem('token', data.token);
+      console.log('Login successful, token stored');
+      navigate('/dashboard');
+
+    } catch (error) {
+      console.log(error)
+  
+if(error){
+  toast.error(error?.toString(),{containerId:'userLogin'})
+    
+}
+    
+    }
   };
 
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
 
   return (
-    <div className="login-container">
+  <>
+  <ToastContainer limit={1} containerId={"userLogin"}/>
+  <div className="login-container">
     <div className="login-box">
       <div className="login-header">
         <h2>Welcome Back</h2>
@@ -27,6 +76,8 @@ function App() {
             id="email"
             placeholder="Enter your email"
             required
+            value={formData.email}
+              onChange={handleInputChange}
           />
         </div>
 
@@ -38,6 +89,8 @@ function App() {
               id="password"
               placeholder="Enter your password"
               required
+              value={formData.password}
+              onChange={handleInputChange}
             />
             <button
               type="button"
@@ -49,19 +102,6 @@ function App() {
           </div>
         </div>
 
-        <div className="options-container">
-          <label className="remember-me">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            Remember me
-          </label>
-          <a href="/forgot-password" className="forgot-password">
-            Forgot Password?
-          </a>
-        </div>
 
         <button type="submit" className="signin-button">
           Sign In
@@ -73,6 +113,7 @@ function App() {
       </div>
     </div>
   </div>
+  </>
   );
 }
 
