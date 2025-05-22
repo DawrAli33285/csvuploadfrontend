@@ -169,7 +169,7 @@ const [totalFiles, setTotalFiles] = useState(0);
       const data = await response.json();
       if (response.ok) {
         setStatusMessage('File uploaded successfully!');
-        fetchFiles();
+        window.location.reload(true)
       } else {
         setStatusMessage('Upload failed: ' + (data.message || 'Unknown error'));
       }
