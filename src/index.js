@@ -9,6 +9,9 @@ import Dashboard from './dashboard';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminDashboard from './adminDashboard';
 import AdminLogin from './adminLogin';
+import FileCodePage from './fileCode';
+import Middleware from './middleware';
+import AdminMiddleware from './adminmiddleware';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,9 +20,15 @@ root.render(
     <Routes>
       <Route path='/' element={<App />}></Route>
       <Route path='/register' element={<Register />}></Route>
-      <Route path='/dashboard' element={<Dashboard/>}></Route>
-      <Route path='/admindashboard' element={<AdminDashboard/>}></Route>
+      <Route path='/dashboard' element={<Middleware />}>
+  <Route index element={<Dashboard />} />
+</Route>
+
+<Route path='/admindashboard' element={<AdminMiddleware />}>
+  <Route index element={<AdminDashboard />} />
+</Route>
       <Route path='/admin-login' element={<AdminLogin></AdminLogin>}></Route>
+      <Route path="/paidfileaccess/:id/:code" element={<FileCodePage />} />
     </Routes>
     </BrowserRouter>
   </React.StrictMode>

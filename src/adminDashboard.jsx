@@ -6,7 +6,10 @@ const AdminDashboard = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [statusMessage, setStatusMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalFiles, setTotalFiles] = useState(0);
  
   useEffect(() => {
    getFiles();
@@ -21,6 +24,7 @@ const AdminDashboard = () => {
       setStatusMessage('Please select a CSV file');
     }
   };
+  
 
   const handleUpload = () => {
     if (selectedFile) {
@@ -49,24 +53,64 @@ const AdminDashboard = () => {
   );
 
 
-  const getFiles=async()=>{
-    try{
-let response=await axios.get(`http://localhost:5000/api/admin/get-files`)
-
-setFiles(response.data.files)
-
-
-    }catch(e){
-
+  const getFiles = async () => {
+    try {
+      let response = await axios.get(
+        `https://csvbackend.vercel.app/api/admin/get-files?page=${currentPage}&limit=${itemsPerPage}`
+      );
+      
+      setFiles(response.data.files);
+      setTotalPages(response.data.totalPages);
+      setTotalFiles(response.data.totalFiles);
+    } catch (e) {
+      toast.error("Error fetching files", { containerId: "admindashboard" });
     }
   }
 
 
+  const PaginationControls = () => (
+    <div className="pagination-controls">
+      <button 
+        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+        disabled={currentPage === 1}
+      >
+        Previous
+      </button>
+      
+      <span>Page {currentPage} of {totalPages}</span>
+      
+      <button
+        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+        disabled={currentPage === totalPages}
+      >
+        Next
+      </button>
+      
+      <select 
+        value={itemsPerPage} 
+        onChange={(e) => {
+          setItemsPerPage(Number(e.target.value));
+          setCurrentPage(1); 
+        }}
+      >
+        <option value={5}>5 per page</option>
+        <option value={10}>10 per page</option>
+        <option value={20}>20 per page</option>
+      </select>
+      
+      <span>Total files: {totalFiles}</span>
+    </div>
+  );
+
+
+  useEffect(() => {
+    getFiles();
+  }, [currentPage, itemsPerPage])
 
   const handleDownload = async (file) => {
     try {
 
-      const response = await fetch(`http://localhost:5000/files/${file?.file}`, {
+      const response = await fetch(`https://csvbackend.vercel.app/files/${file?.file}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -98,8 +142,9 @@ setFiles(response.data.files)
 const enrichifyData=async(file)=>{
   console.log(file)
   try{
-let response=await axios.get(`http://localhost:5000/api/admin/enrichifyData/${file.file}/${file._id}`)
+let response=await axios.get(`https://csvbackend.vercel.app/api/admin/enrichifyData/${file.file}/${file._id}`)
 console.log(response)
+toast.success("Data enrichified sucessfully",{containerId:"admindashboard"})
   }catch(e){
 
   }
@@ -171,6 +216,7 @@ console.log(response)
               </tbody>
             </table>
           )}
+          {files.length > 0 && <PaginationControls />}
         </div>
       </div>
     </div>
