@@ -14,7 +14,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://csvbackend.vercel.app/api/user", {
+      const response = await fetch("http://18.118.206.148:5000/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ function Register() {
       if (!response.ok) {
         throw new Error(data.error || "Registration failed");
       }
-
+toast.success("Registration successful",{containerId:'userRegister'})
       console.log("Registration successful:", data);
       navigate("/dashboard");
     } catch (error) {

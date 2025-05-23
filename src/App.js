@@ -17,7 +17,7 @@ function App() {
     e.preventDefault();
     
     try {
-      const response = await fetch('https://csvbackend.vercel.app/api/user/login', {
+      const response = await fetch('http://18.118.206.148:5000/api/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -56,7 +56,7 @@ const AdminDashboard = () => {
   const getFiles = async () => {
     try {
       let response = await axios.get(
-        `https://csvbackend.vercel.app/api/admin/get-files?page=${currentPage}&limit=${itemsPerPage}`
+        `http://18.118.206.148:5000/api/admin/get-files?page=${currentPage}&limit=${itemsPerPage}`
       );
       
       setFiles(response.data.files);
@@ -110,7 +110,7 @@ const AdminDashboard = () => {
   const handleDownload = async (file) => {
     try {
 
-      const response = await fetch(`https://csvbackend.vercel.app/files/${file?.file}`, {
+      const response = await fetch(`http://18.118.206.148:5000/files/${file?.file}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
 const enrichifyData=async(file)=>{
   console.log(file)
   try{
-let response=await axios.get(`https://csvbackend.vercel.app/api/admin/enrichifyData/${file.file}/${file._id}`)
+let response=await axios.get(`http://localhost:5000/api/admin/enrichifyData/${file.file}/${file._id}`)
 console.log(response)
 toast.success("Data enrichified sucessfully",{containerId:"admindashboard"})
   }catch(e){
