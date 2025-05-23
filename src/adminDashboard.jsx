@@ -56,7 +56,7 @@ const AdminDashboard = () => {
   const getFiles = async () => {
     try {
       let response = await axios.get(
-        `http://https://csvbackend.vercel.app/api/admin/get-files?page=${currentPage}&limit=${itemsPerPage}`
+        `https://csvbackend.vercel.app/api/admin/get-files?page=${currentPage}&limit=${itemsPerPage}`
       );
       
       setFiles(response.data.files);
