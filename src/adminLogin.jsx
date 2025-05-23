@@ -60,8 +60,12 @@ function AdminLogin() {
       <div className="admin-login-container">
         <div className="admin-login-box">
           <div className="admin-login-header">
-            
-            <h2>Admin Portal</h2>
+          <div style={{display:'flex',gap:'2rem'}}>
+        <img style={{width:'5rem'}} id="logo" src="/logo.jpg"/>
+        <h2>Admin Portal</h2>
+        </div>
+       
+           
             <p>Restricted Access - Authorized Personnel Only</p>
             <div className="admin-badge">⚙️</div>
           </div>
