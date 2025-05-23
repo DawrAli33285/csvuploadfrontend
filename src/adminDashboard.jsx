@@ -142,7 +142,7 @@ const AdminDashboard = () => {
 const enrichifyData=async(file)=>{
   console.log(file)
   try{
-let response=await axios.get(`http://localhost:5000/api/admin/enrichifyData/${file.file}/${file._id}`)
+let response=await axios.get(`https://csvbackend.vercel.app/api/admin/enrichifyData/${file.file}/${file._id}`)
 console.log(response)
 toast.success("Data enrichified sucessfully",{containerId:"admindashboard"})
   }catch(e){
@@ -201,16 +201,7 @@ toast.success("Data enrichified sucessfully",{containerId:"admindashboard"})
 
                       
                     </td>
-                    <td>
-                      <div className="action-buttons">
-                        <label className="update-file">
-                          
-                          <span onClick={(e) => enrichifyData(file)}>Enrichify</span>
-                        </label>
-                      </div>
-
-                      
-                    </td>
+                   
                   </tr>
                 ))}
               </tbody>
