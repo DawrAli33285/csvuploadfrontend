@@ -156,9 +156,12 @@ toast.success("Data enrichified sucessfully",{containerId:"admindashboard"})
 
     <div className="dashboard-container admin">
       <div className="dashboard-box">
+      <div style={{display:'flex',gap:'2rem'}}>
+        <img style={{width:'5rem'}} id="logo" src="/logo.jpg"/>
         <h2>Admin File Management</h2>
-        
-      
+        </div>
+       
+
 
         {statusMessage && (
           <div className={`status-message ${statusMessage.includes('success') ? 'success' : 'error'}`}>

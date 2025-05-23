@@ -238,7 +238,10 @@ const [totalFiles, setTotalFiles] = useState(0);
       )}
       <div className="dashboard-container">
         <div className="dashboard-box">
-          <h2>CSV File Manager</h2>
+        <div style={{display:'flex',gap:'2rem'}}>
+        <img style={{width:'5rem'}} id="logo" src="/logo.jpg"/>
+        <h2>CSV File Manager</h2>
+        </div>
           <div className="upload-section">
             <div className="file-input">
               <input

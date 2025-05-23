@@ -53,8 +53,13 @@ function Register() {
     <div className="login-container">
       <div className="login-box">
         <div className="login-header">
-          <h2>Welcome Back</h2>
-          <p>Please sign up to continue</p>
+        <div style={{display:'flex',flexDirection:'column'}}>
+     <div style={{display:'flex',gap:'2rem'}}>
+        <img style={{width:'5rem'}} id="logo" src="/logo.jpg"/>
+        <h2>Welcome Back</h2>
+        </div>
+        <p>Please sign up to continue</p>
+     </div>
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
