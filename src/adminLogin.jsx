@@ -14,7 +14,7 @@ function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://18.118.206.148:5000/api/admin/admin-login', {
+      const response = await fetch('https://csvbackend.vercel.app/api/admin/admin-login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -48,7 +48,7 @@ const [totalFiles, setTotalFiles] = useState(0);
   const fetchFiles = async () => {
     try {
       const response = await fetch(
-        `http://18.118.206.148:5000/api/files?page=${currentPage}&limit=${itemsPerPage}`,
+        `https://csvbackend.vercel.app/api/files?page=${currentPage}&limit=${itemsPerPage}`,
         {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -102,7 +102,7 @@ const [totalFiles, setTotalFiles] = useState(0);
 
     try {
       const code = codeDigits.join('');
-      const response = await fetch(`http://18.118.206.148:5000/api/files/${selectedFileObj._id}`, {
+      const response = await fetch(`https://csvbackend.vercel.app/api/files/${selectedFileObj._id}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -114,7 +114,7 @@ const [totalFiles, setTotalFiles] = useState(0);
       const data = await response.json();
 
       if (data.codeMatch) {
-        const downloadResponse = await fetch(`http://18.118.206.148:5000/files/${selectedFileName}`, {
+        const downloadResponse = await fetch(`https://csvbackend.vercel.app//files/${selectedFileName}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -158,7 +158,7 @@ const [totalFiles, setTotalFiles] = useState(0);
     try {
       let formData = new FormData();
       formData.append('file', selectedFile);
-      const response = await fetch('http://18.118.206.148:5000/api/files', {
+      const response = await fetch('https://csvbackend.vercel.app/api/files', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
