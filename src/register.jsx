@@ -30,11 +30,10 @@ function Register() {
       if (!response.ok) {
         throw new Error(data.error || "Registration failed");
       }
-toast.success("Registration successful",{containerId:'userRegister'})
-      console.log("Registration successful:", data);
-      setTimeout(()=>{
-        navigate("/dashboard");
-      },800)
+
+      
+        navigate("/");
+      
     } catch (error) {
       if(error){
         toast.error(error?.toString(),{containerId:"userRegister"})
