@@ -110,7 +110,7 @@ const AdminDashboard = () => {
   const handleDownload = async (file) => {
     try {
 
-      const response = await fetch(`http://https://csvbackend.vercel.app/files/${file?.file}`, {
+      const response = await fetch(`https://csvbackend.vercel.app/files/${file?.file}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
