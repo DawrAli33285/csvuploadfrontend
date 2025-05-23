@@ -114,7 +114,7 @@ const [totalFiles, setTotalFiles] = useState(0);
       const data = await response.json();
 
       if (data.codeMatch) {
-        const downloadResponse = await fetch(`https://csvbackend.vercel.app//files/${selectedFileName}`, {
+        const downloadResponse = await fetch(`https://csvbackend.vercel.app/files/${selectedFileName}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
