@@ -187,10 +187,22 @@ const [totalFiles, setTotalFiles] = useState(0);
       fetchFiles();
     
   }, [navigate, currentPage, itemsPerPage]); 
-
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
   return (
     <>
       <ToastContainer containerId={"userDashboard"} />
+      <div className="navbar">
+      <div className="navbar-left">
+        <img style={{ width: '5rem' }} id="logo" src="/logo.jpg" alt="Enrichify Logo" />
+        <h2>CSV File Manager</h2>
+      </div>
+      <button className="signout-button" onClick={handleLogout}>
+        Sign Out
+      </button>
+    </div>
       {showDownloadModal && (
         <div className="modal-overlay">
           <div className="download-modal">
@@ -239,7 +251,7 @@ const [totalFiles, setTotalFiles] = useState(0);
       <div className="dashboard-container">
         <div className="dashboard-box">
         <div style={{display:'flex',gap:'2rem'}}>
-        <img style={{width:'5rem'}} id="logo" src="/logo.jpg"/>
+        
         <h2>CSV File Manager</h2>
         </div>
           <div className="upload-section">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { ToastContainer,toast } from 'react-toastify';
+import {useNavigate} from 'react-router-dom'
 const AdminDashboard = () => {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -11,6 +12,7 @@ const AdminDashboard = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalFiles, setTotalFiles] = useState(0);
  
+  const navigate=useNavigate()
   useEffect(() => {
    getFiles();
   }, []);
@@ -150,14 +152,29 @@ toast.success("Data enrichified sucessfully",{containerId:"admindashboard"})
   }
 }
 
+const handleLogout = () => {
+  localStorage.removeItem('adminToken');
+  navigate('/');
+};
+
+
   return (
     <>
 <ToastContainer containerId={"admindashboard"}/>
+<div className="navbar">
+      <div className="navbar-left">
+        <img style={{ width: '5rem' }} id="logo" src="/logo.jpg" alt="Enrichify Logo" />
+        <h2>CSV File Manager</h2>
+      </div>
+      <button className="signout-button" onClick={handleLogout}>
+        Sign Out
+      </button>
+    </div>
 
     <div className="dashboard-container admin">
       <div className="dashboard-box">
       <div style={{display:'flex',gap:'2rem'}}>
-        <img style={{width:'5rem'}} id="logo" src="/logo.jpg"/>
+        
         <h2>Admin File Management</h2>
         </div>
        

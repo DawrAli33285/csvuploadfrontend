@@ -509,3 +509,42 @@ th:nth-child(5) { width: 15%; }
   font-size: 0.9em;
   color: #666;
 }
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.signout-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.signout-button:hover {
+  background-color: #2980b9;
+}
+
+/* Adjust the dashboard-container to account for navbar height */
+.dashboard-container {
+  padding-top: 2rem;
+}
