@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -31,7 +32,12 @@ const [totalFiles, setTotalFiles] = useState(0);
 
     setSelectedFileName(file?.file);
     setSelectedFileObj(file);
-    setShowDownloadModal(true);
+
+    if(file?.unlocked==false){
+      setShowDownloadModal(true);
+    }else{
+      handleDownloadWithoutCode(file)
+    }
   };
 
   const handleCodeChange = (index, value) => {
@@ -119,6 +125,7 @@ const [totalFiles, setTotalFiles] = useState(0);
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         });
+        await axios.post(`https://csvbackend.vercel.app/api/admin/unlocked/${selectedFileObj._id}`)
 
         if (downloadResponse.ok) {
           const blob = await downloadResponse.blob();
@@ -143,6 +150,37 @@ const [totalFiles, setTotalFiles] = useState(0);
       toast.error("Error downloading file", { containerId: "userDashboard" });
     }
   };
+
+const handleDownloadWithoutCode=async(file)=>{
+  try {
+ 
+      const downloadResponse = await fetch(`https://csvbackend.vercel.app/files/${file.file}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+   
+      if (downloadResponse.ok) {
+        const blob = await downloadResponse.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = selectedFileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        toast.success("File downloaded successfully", { containerId: "userDashboard" });
+        setShowDownloadModal(false);
+    setCodeDigits(['', '', '', '']);
+      }
+    
+
+ 
+  } catch (error) {
+    toast.error("Error downloading file", { containerId: "userDashboard" });
+  }
+}
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
