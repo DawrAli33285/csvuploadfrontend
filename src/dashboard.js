@@ -120,11 +120,10 @@ const [totalFiles, setTotalFiles] = useState(0);
       const data = await response.json();
 
       if (data.codeMatch) {
-        const downloadResponse = await fetch(`https://csvbackend.vercel.app/files/${selectedFileName}`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
+        const downloadResponse= await fetch(selectedFileObj.url, {
+       
         });
+        
         await axios.post(`https://csvbackend.vercel.app/api/admin/unlocked/${selectedFileObj._id}`)
 
         if (downloadResponse.ok) {
@@ -154,12 +153,10 @@ const [totalFiles, setTotalFiles] = useState(0);
 const handleDownloadWithoutCode=async(file)=>{
   try {
  
-      const downloadResponse = await fetch(`https://csvbackend.vercel.app/files/${file.file}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-   
+    const downloadResponse= await fetch(selectedFileObj.url, {
+       
+    });
+    
       if (downloadResponse.ok) {
         const blob = await downloadResponse.blob();
         const url = window.URL.createObjectURL(blob);

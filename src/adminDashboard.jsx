@@ -162,14 +162,10 @@ setSelectedUserFiles(response.data.files)
   };
   
 
-
   const handleDownloadFile = async (file) => {
     try {
-
-      const response = await fetch(`https://csvbackend.vercel.app/files/${file?.file}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
+      const response = await fetch(file.url, {
+       
       });
       
       if (response.ok) {
@@ -182,30 +178,27 @@ setSelectedUserFiles(response.data.files)
         a.click();
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-        toast.success("File downloaded sucessfully",{containerId:"admindashboard"})
+        toast.success("File downloaded successfully", { containerId: "admindashboard" });
+      } else {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
     } catch (error) {
-      if(error?.response?.data?.error){
-        toast.error(error?.response?.data?.error,{containerId:"admindashboard"})
-      }else{
-        toast.error("Error uploading file",{containerId:"admindashboard"})
-      }
-      setStatusMessage('Download failed: ' + error.message);
+      console.error('Download error:', error);
+      toast.error(error.message || "Error downloading file", { containerId: "admindashboard" });
     }
   };
-
 
   
 
   const handleFileUpload = async (event) => {
     setLoading(true);
     const file = event.target.files[0];
-    if (!file || !uploadingFile) { // Add null check for uploadingFile
+    if (!file || !uploadingFile) {
       setLoading(false);
       return;
     }
   
-    // Reset input value to allow same file re-uploads
+  
     event.target.value = '';
   
     if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
