@@ -138,6 +138,15 @@ const [totalFiles, setTotalFiles] = useState(0);
           window.URL.revokeObjectURL(url);
           toast.success("File downloaded successfully", { containerId: "userDashboard" });
           setShowDownloadModal(false);
+          setFiles((prev)=>{
+            let old=[...prev]
+            let getIndex=old.findIndex(u=>u._id==selectedFileObj._id)
+            old[getIndex]={
+              ...old[getIndex],
+              unlocked:true
+            }
+            return old
+          })
       setCodeDigits(['', '', '', '']);
         }
       } else {
