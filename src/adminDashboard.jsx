@@ -21,6 +21,12 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (uploadingFile) {
+      document.getElementById('file-upload').click();
+    }
+  }, [uploadingFile]);
+
+  useEffect(() => {
     getUsers();
   }, [currentPage, itemsPerPage]);
 
@@ -153,9 +159,8 @@ setSelectedUserFiles(response.data.files)
 
   const handleUploadClick = (file) => {
     setUploadingFile(file);
-    document.getElementById('file-upload').click();
   };
-
+  
 
 
   const handleDownloadFile = async (file) => {
@@ -193,10 +198,15 @@ setSelectedUserFiles(response.data.files)
   
 
   const handleFileUpload = async (event) => {
-   
-    setLoading(true)
+    setLoading(true);
     const file = event.target.files[0];
-    if (!file) return;
+    if (!file || !uploadingFile) { // Add null check for uploadingFile
+      setLoading(false);
+      return;
+    }
+  
+    // Reset input value to allow same file re-uploads
+    event.target.value = '';
   
     if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
       try {
@@ -213,21 +223,18 @@ setSelectedUserFiles(response.data.files)
             }
           }
         );
-  console.log(response.data)
-        toast.success("File uploaded successfully",{containerId:"admindashboard"});
-        // Refresh files list
+  
+        toast.success("File uploaded successfully", { containerId: "admindashboard" });
         await getUserFiles(selectedUser);
-        setLoading(false)
       } catch (error) {
-        console.log(error)
-        toast.error("Error uploading file",{containerId:"admindashboard"});
-        setLoading(false)
+        toast.error("Error uploading file", { containerId: "admindashboard" });
       }
     } else {
       toast.error("Please select a CSV file");
     }
+    setLoading(false);
     setUploadingFile(null);
-  }
+  };
 
 
 
@@ -242,9 +249,12 @@ setSelectedUserFiles(response.data.files)
           }
         }
       );
-      toast.success("Verification code sent to user");
+     
+      toast.success("Verification code sent to user",{containerId:'admindashboard'});
+
     } catch (error) {
-      toast.error("Failed to send verification code");
+      console.log(error)
+      toast.error("Failed to send verification code",{containerId:"admindashboard"});
     }
   };
   return (
